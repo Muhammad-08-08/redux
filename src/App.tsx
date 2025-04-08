@@ -8,6 +8,9 @@ import {
   RootState,
   store,
 } from "./store/redux";
+import { CheckOutlined, DeleteFilled, EditOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import EditDrawer from "./components/EditDrawer";
 
 function App() {
   return (
@@ -20,10 +23,22 @@ function App() {
 function TodoList() {
   const todo = useSelector((state: RootState) => state.todo.todo);
   const input = useSelector((state: RootState) => state.todo.input);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedUser, setSelectedUser] = useState<{
+    id: number;
+    name: string;
+    completed: boolean;
+  } | null>(null);
+
   const dispatch = useDispatch();
 
   return (
     <div className="w-[700px] mx-auto bg-slate-800 text-white my-10 p-6 rounded-2xl">
+      <EditDrawer
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        editItem={selectedUser}
+      />
       <Form className="flex gap-3">
         <Form.Item className="w-full">
           <Input
@@ -48,7 +63,7 @@ function TodoList() {
       </Form>
       {todo.map((item) => {
         return (
-          <div className="flex justify-between items-center">
+          <div key={item.id} className="flex justify-between items-center">
             <p
               className={
                 item.completed
@@ -64,14 +79,23 @@ function TodoList() {
                   dispatch(completed(item.id));
                 }}
               >
-                comp
+                <CheckOutlined className="text-green-600" />
               </Button>
+              <Button
+                onClick={() => {
+                  setSelectedUser(item);
+                  setIsOpen(true);
+                }}
+              >
+                <EditOutlined />
+              </Button>
+
               <Button
                 onClick={() => {
                   dispatch(deleted(item.id));
                 }}
               >
-                delet
+                <DeleteFilled />
               </Button>
             </div>
           </div>

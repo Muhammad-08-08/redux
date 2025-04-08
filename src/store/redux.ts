@@ -59,11 +59,18 @@ const todoSlice = createSlice({
     inputValue: (state, { payload }) => {
       state.input = payload;
     },
+    update: (state, { payload }) => {
+      const item = state.todo.find((t) => t.id === payload.id);
+      if (item) {
+        item.name = payload.name;
+      }
+    },
   },
 });
 
 export const { increment, decrement } = counterSlice.actions;
-export const { add, deleted, completed, inputValue } = todoSlice.actions;
+export const { add, deleted, completed, inputValue, update } =
+  todoSlice.actions;
 
 export const store = configureStore({
   reducer: { counter: counterSlice.reducer, todo: todoSlice.reducer },
