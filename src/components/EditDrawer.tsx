@@ -1,13 +1,14 @@
 import { Button, Drawer, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
 import { update } from "../store/redux";
+import { todoType } from "../types/types";
 
 function EditDrawer({
   editItem,
   isOpen,
   onClose,
 }: {
-  editItem: { id: number; name: string; completed: boolean } | null;
+  editItem: todoType | null;
   isOpen: boolean;
   onClose: () => void;
 }) {

@@ -12,6 +12,7 @@ import {
 import { CheckOutlined, DeleteFilled, EditOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import EditDrawer from "./components/EditDrawer";
+import { todoType } from "./types/types";
 
 function App() {
   return (
@@ -26,11 +27,7 @@ function TodoList() {
   const input = useSelector((state: RootState) => state.todo.input);
   const editInput = useSelector((state: RootState) => state.todo.editInput);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedUser, setSelectedUser] = useState<{
-    id: number;
-    name: string;
-    completed: boolean;
-  } | null>(null);
+  const [selectedUser, setSelectedUser] = useState<todoType | null>(null);
 
   const dispatch = useDispatch();
 

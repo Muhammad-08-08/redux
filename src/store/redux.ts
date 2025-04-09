@@ -1,18 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-
-interface counterSliceType {
-  value: number;
-}
-
-interface todoSliceType {
-  todo: {
-    id: number;
-    name: string;
-    completed: boolean;
-  }[];
-  input: string;
-  editInput: string;
-}
+import { counterSliceType, todoSliceType } from "../types/types";
 
 const counterSlice = createSlice({
   name: "counter",
