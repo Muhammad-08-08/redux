@@ -67,21 +67,23 @@ function TodoList() {
           </Button>
         </Form.Item>
       </Form>
-      <Input
-        placeholder="Qidirish"
-        value={editInput}
-        onChange={(e) => {
-          dispatch(editInputValue(e.currentTarget.value));
-        }}
-        className="mb-4"
-      />
+      <div className="mb-4">
+        <Input
+          placeholder="Qidirish"
+          value={editInput}
+          onChange={(e) => {
+            dispatch(editInputValue(e.currentTarget.value));
+          }}
+          className="mb-4"
+        />
+      </div>
       {Search.map((item) => {
         return (
-          <div key={item.id} className="flex justify-between items-center">
+          <div key={item.id} className="flex justify-between items-center my-2">
             <p
               className={
                 item.completed
-                  ? "line-through text-green-600 mb-4"
+                  ? "line-through text-green-600"
                   : "text-white mb-4"
               }
             >
