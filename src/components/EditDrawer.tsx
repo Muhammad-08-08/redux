@@ -1,7 +1,7 @@
 import { Button, Drawer, Form, Input } from "antd";
 import { useDispatch } from "react-redux";
-import { update } from "../store/redux";
 import { todoType } from "../types/types";
+import { update } from "../store/redux-store";
 
 function EditDrawer({
   editItem,

@@ -1,5 +1,9 @@
 import { Button, Form, Input } from "antd";
 import { Provider, useDispatch, useSelector } from "react-redux";
+import { CheckOutlined, DeleteFilled, EditOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import EditDrawer from "./components/EditDrawer";
+import { todoType } from "./types/types";
 import {
   add,
   completed,
@@ -8,11 +12,7 @@ import {
   inputValue,
   RootState,
   store,
-} from "./store/redux";
-import { CheckOutlined, DeleteFilled, EditOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import EditDrawer from "./components/EditDrawer";
-import { todoType } from "./types/types";
+} from "./store/redux-store";
 
 function App() {
   return (
@@ -81,7 +81,7 @@ function TodoList() {
               className={
                 item.completed
                   ? "line-through text-green-600"
-                  : "text-white mb-4"
+                  : "text-white"
               }
             >
               {item.name}

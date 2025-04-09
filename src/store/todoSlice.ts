@@ -1,20 +1,7 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { counterSliceType, todoSliceType } from "../types/types";
+import { createSlice } from "@reduxjs/toolkit";
+import { todoSliceType } from "../types/types";
 
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: { value: 0 } as counterSliceType,
-  reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-  },
-});
-
-const todoSlice = createSlice({
+export const todoSlice = createSlice({
   name: "todo",
   initialState: {
     todo: [
@@ -34,6 +21,7 @@ const todoSlice = createSlice({
         name: payload,
         completed: false,
       });
+      state.input = "";
     },
     completed: (state, { payload }) => {
       const todoCompleted = state.todo.find((item) => item.id === payload);
@@ -59,14 +47,3 @@ const todoSlice = createSlice({
     },
   },
 });
-
-export const { increment, decrement } = counterSlice.actions;
-export const { add, deleted, completed, inputValue, update, editInputValue } =
-  todoSlice.actions;
-
-export const store = configureStore({
-  reducer: { counter: counterSlice.reducer, todo: todoSlice.reducer },
-});
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
