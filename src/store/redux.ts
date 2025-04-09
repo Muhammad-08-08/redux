@@ -11,6 +11,7 @@ interface todoSliceType {
     completed: boolean;
   }[];
   input: string;
+  editInput: string;
 }
 
 const counterSlice = createSlice({
@@ -37,6 +38,7 @@ const todoSlice = createSlice({
       },
     ],
     input: "",
+    editInput: "",
   } as todoSliceType,
   reducers: {
     add: (state, { payload }) => {
@@ -59,6 +61,9 @@ const todoSlice = createSlice({
     inputValue: (state, { payload }) => {
       state.input = payload;
     },
+    editInputValue: (state, { payload }) => {
+      state.editInput = payload;
+    },
     update: (state, { payload }) => {
       const item = state.todo.find((t) => t.id === payload.id);
       if (item) {
@@ -69,7 +74,7 @@ const todoSlice = createSlice({
 });
 
 export const { increment, decrement } = counterSlice.actions;
-export const { add, deleted, completed, inputValue, update } =
+export const { add, deleted, completed, inputValue, update, editInputValue } =
   todoSlice.actions;
 
 export const store = configureStore({

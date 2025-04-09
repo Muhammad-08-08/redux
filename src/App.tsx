@@ -4,6 +4,7 @@ import {
   add,
   completed,
   deleted,
+  editInputValue,
   inputValue,
   RootState,
   store,
@@ -23,6 +24,7 @@ function App() {
 function TodoList() {
   const todo = useSelector((state: RootState) => state.todo.todo);
   const input = useSelector((state: RootState) => state.todo.input);
+  const editInput = useSelector((state: RootState) => state.todo.editInput);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<{
     id: number;
@@ -32,13 +34,17 @@ function TodoList() {
 
   const dispatch = useDispatch();
 
+  const OnClose = () => {
+    setIsOpen(false);
+  };
+
+  const Search = todo.filter((item) => {
+    return item.name.toLowerCase().includes(editInput.toLowerCase());
+  });
+
   return (
     <div className="w-[700px] mx-auto bg-slate-800 text-white my-10 p-6 rounded-2xl">
-      <EditDrawer
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        editItem={selectedUser}
-      />
+      <EditDrawer isOpen={isOpen} onClose={OnClose} editItem={selectedUser} />
       <Form className="flex gap-3">
         <Form.Item className="w-full">
           <Input
@@ -61,7 +67,15 @@ function TodoList() {
           </Button>
         </Form.Item>
       </Form>
-      {todo.map((item) => {
+      <Input
+        placeholder="Qidirish"
+        value={editInput}
+        onChange={(e) => {
+          dispatch(editInputValue(e.currentTarget.value));
+        }}
+        className="mb-4"
+      />
+      {Search.map((item) => {
         return (
           <div key={item.id} className="flex justify-between items-center">
             <p

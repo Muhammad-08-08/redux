@@ -5,23 +5,25 @@ import { update } from "../store/redux";
 function EditDrawer({
   editItem,
   isOpen,
-  setIsOpen,
+  onClose,
 }: {
   editItem: { id: number; name: string; completed: boolean } | null;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
 }) {
   const dispatch = useDispatch();
 
-  const handleSubmit = (values: { name: string }) => {
-    if (editItem) {
-      dispatch(update({ id: editItem.id, name: values.name }));
-      setIsOpen(false);
-    }
-  };
   return (
-    <Drawer open={isOpen} onClose={() => setIsOpen(false)}>
-      <Form initialValues={{ name: editItem?.name }} onFinish={handleSubmit}>
+    <Drawer open={isOpen} onClose={() => onClose()}>
+      <Form
+        initialValues={{ name: editItem?.name }}
+        onFinish={(values: { name: string }) => {
+          if (editItem) {
+            dispatch(update({ id: editItem.id, name: values.name }));
+            onClose();
+          }
+        }}
+      >
         <Form.Item name="name">
           <Input />
         </Form.Item>
