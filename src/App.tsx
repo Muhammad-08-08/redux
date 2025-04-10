@@ -36,7 +36,7 @@ function TodoList() {
   };
 
   const Search = todo.filter((item) => {
-    return item.name.toLowerCase().includes(editInput.toLowerCase());
+    return item.name.toLowerCase().includes(editInput.toLowerCase().trim());
   });
 
   return (
